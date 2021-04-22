@@ -210,6 +210,8 @@ in
         default = null;
         example = "${cfg.dataDir}/homeserver.tls.dh";
         description = ''
+          DEPRECATED as of Synapse 0.99.0 configuring and generating dh_params
+          is no longer required, and they will be ignored.
           PEM dh parameters for ephemeral keys
         '';
       };
@@ -550,6 +552,7 @@ in
         type = types.str;
         default = "1209600000";
         description = ''
+          DEPRECATED this config value is not used in Synapse anymore.
           Sets the expiry for the short term user creation in
           milliseconds. The default value is two weeks.
         '';
@@ -621,6 +624,7 @@ in
         type = types.bool;
         default = false;
         description = ''
+          DEPRECATED.
           Whether to enable access token expiration.
         '';
       };

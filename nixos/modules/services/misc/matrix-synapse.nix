@@ -281,7 +281,7 @@ in
                     description = ''
                       List of resources to host on this listener.
                     '';
-                    example = ["client" "webclient" "federation"];
+                    example = [ "client" "webclient" "federation" ];
                   };
                   compress = mkOption {
                     type = types.bool;
@@ -306,8 +306,8 @@ in
           tls = true;
           x_forwarded = false;
           resources = [
-            { names = ["client" "webclient"]; compress = true; }
-            { names = ["federation"]; compress = false; }
+            { names = [ "client" "webclient" ]; compress = true; }
+            { names = [ "federation" ]; compress = false; }
           ];
         }];
         description = ''
@@ -365,7 +365,8 @@ in
       };
       database_type = mkOption {
         type = types.enum [ "sqlite3" "psycopg2" ];
-        default = if versionAtLeast config.system.stateVersion "18.03"
+        default =
+          if versionAtLeast config.system.stateVersion "18.03"
           then "psycopg2"
           else "sqlite3";
         description = ''
@@ -429,7 +430,7 @@ in
       };
       url_preview_ip_range_whitelist = mkOption {
         type = types.listOf types.str;
-        default = [];
+        default = [ ];
         description = ''
           List of IP address CIDR ranges that the URL preview spider is allowed
           to access even if they are specified in
@@ -438,7 +439,7 @@ in
       };
       url_preview_url_blacklist = mkOption {
         type = types.listOf types.str;
-        default = [];
+        default = [ ];
         description = ''
           Optional list of URL matches that the URL preview spider is
           denied from accessing.
@@ -469,7 +470,7 @@ in
       };
       turn_uris = mkOption {
         type = types.listOf types.str;
-        default = [];
+        default = [ ];
         description = ''
           The public URIs of the TURN server to give to clients
         '';
@@ -587,6 +588,7 @@ in
       room_prejoin_state.additional_event_types = mkOption {
         default = [];
         type = types.listOf types.str;
+        default = [ "m.room.join_rules" "m.room.canonical_alias" "m.room.avatar" "m.room.name" ];
         description = ''
           Additional events to share with users who received an invite.
         '';
@@ -656,7 +658,7 @@ in
       };
       extraConfigFiles = mkOption {
         type = types.listOf types.path;
-        default = [];
+        default = [ ];
         description = ''
           Extra config files to include.
 
@@ -700,7 +702,8 @@ in
 
   config = mkIf cfg.enable {
     assertions = [
-      { assertion = hasLocalPostgresDB -> config.services.postgresql.enable;
+      {
+        assertion = hasLocalPostgresDB -> config.services.postgresql.enable;
         message = ''
           Cannot deploy matrix-synapse with a configuration for a local postgresql database
             and a missing postgresql service. Since 20.03 it's mandatory to manually configure the

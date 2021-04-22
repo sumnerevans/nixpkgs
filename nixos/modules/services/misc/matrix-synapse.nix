@@ -26,7 +26,6 @@ let
 
     # TLS
     inherit (cfg) tls_certificate_path tls_private_key_path no_tls;
-    inherit (cfg) tls_dh_params_path; # deprecated, but keeping for backwards compatibility
 
     # Federation
 
@@ -203,16 +202,6 @@ in
         description = ''
           PEM encoded private key for TLS. Specify null if synapse is not
           speaking TLS directly.
-        '';
-      };
-      tls_dh_params_path = mkOption {
-        type = types.nullOr types.str;
-        default = null;
-        example = "${cfg.dataDir}/homeserver.tls.dh";
-        description = ''
-          DEPRECATED as of Synapse 0.99.0 configuring and generating dh_params
-          is no longer required, and they will be ignored.
-          PEM dh parameters for ephemeral keys
         '';
       };
       server_name = mkOption {
@@ -771,7 +760,7 @@ in
 
   imports = [
     (mkRemovedOptionModule [ "services" "matrix-synapse" "trusted_third_party_id_servers" ] ''
-      The `trusted_third_party_id_servers` option as been removed in `matrix-synapse` v1.4.0
+      The `trusted_third_party_id_servers` option has been removed in `matrix-synapse` v1.4.0
       as the behavior is now obsolete.
     '')
     (mkRemovedOptionModule [ "services" "matrix-synapse" "create_local_database" ] ''
@@ -779,6 +768,9 @@ in
       <nixpkgs/nixos/tests/matrix-synapse.nix>
     '')
     (mkRemovedOptionModule [ "services" "matrix-synapse" "web_client" ] "")
+    (mkRemovedOptionModule [ "services" "matrix-synapse" "tls_dh_params_path" ] ''
+      The `tls_dh_params_path` option was removed in `matrix-synapse` 0.99.0.
+    '')
   ];
 
   meta.doc = ./matrix-synapse.xml;

@@ -88,7 +88,6 @@ let
     # API Configuration
     inherit (cfg) macaroon_secret_key app_service_config_files room_prejoin_state;
     inherit (cfg) room_invite_state_types; # deprecated by https://github.com/matrix-org/synapse/pull/9700
-    inherit (cfg) expire_access_token; # deprecated by https://github.com/matrix-org/synapse/pull/5782
 
     # Signing Keys
     inherit (cfg) key_refresh_interval;
@@ -608,14 +607,6 @@ in
           Secret key for authentication tokens
         '';
       };
-      expire_access_token = mkOption {
-        type = types.bool;
-        default = false;
-        description = ''
-          DEPRECATED.
-          Whether to enable access token expiration.
-        '';
-      };
       key_refresh_interval = mkOption {
         type = types.str;
         default = "1d";
@@ -769,6 +760,9 @@ in
     (mkRemovedOptionModule [ "services" "matrix-synapse" "web_client" ] "")
     (mkRemovedOptionModule [ "services" "matrix-synapse" "tls_dh_params_path" ] ''
       The `tls_dh_params_path` option was removed in `matrix-synapse` 0.99.0.
+    '')
+    (mkRemovedOptionModule [ "services" "matrix-synapse" "expire_access_token" ] ''
+      The `expire_access_token` option was removed in `matrix-synapse` 1.3.0.
     '')
   ];
 

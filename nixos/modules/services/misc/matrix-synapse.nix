@@ -74,7 +74,6 @@ let
 
     # Registration
     inherit (cfg) enable_registration registration_shared_secret bcrypt_rounds allow_guest_access;
-    inherit (cfg) user_creation_max_duration; # deprecated, but keeping for backwards compatibility
 
     account_threepid_delegates = filterAttrs (_: v: v != null) {
       inherit (cfg.account_threepid_delegates) email msisdn;
@@ -535,15 +534,6 @@ in
           from a precalculated list.
         '';
       };
-      user_creation_max_duration = mkOption {
-        type = types.str;
-        default = "1209600000";
-        description = ''
-          DEPRECATED this config value is not used in Synapse anymore.
-          Sets the expiry for the short term user creation in
-          milliseconds. The default value is two weeks.
-        '';
-      };
       bcrypt_rounds = mkOption {
         type = types.str;
         default = "12";
@@ -763,6 +753,9 @@ in
     '')
     (mkRemovedOptionModule [ "services" "matrix-synapse" "expire_access_token" ] ''
       The `expire_access_token` option was removed in `matrix-synapse` 1.3.0.
+    '')
+    (mkRemovedOptionModule [ "services" "matrix-synapse" "user_creation_max_duration" ] ''
+      The `user_creation_max_duration` option was removed in `matrix-synapse` 1.3.0.
     '')
   ];
 

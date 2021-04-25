@@ -313,8 +313,8 @@ in
         description = "Number of messages a client can send per second";
       };
       rc_message_burst_count = mkOption {
-        type = types.str;
-        default = "10.0";
+        type = types.int;
+        default = 10;
         description = "Number of message a client can send before being throttled";
       };
       federation_rc_window_size = mkOption {

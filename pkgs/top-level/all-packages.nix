@@ -6483,25 +6483,25 @@ in
 
   /* Python 3.8 is currently broken with matrix-synapse since `python38Packages.bleach` fails
     (https://github.com/NixOS/nixpkgs/issues/76093) */
-  matrix-synapse = callPackage ../servers/matrix-synapse { /*python3 = python38;*/ };
+  matrix-synapse = callPackage ../servers/matrix/matrix-synapse { /*python3 = python38;*/ };
 
   matrix-synapse-plugins = recurseIntoAttrs matrix-synapse.plugins;
 
   matrix-synapse-tools = recurseIntoAttrs matrix-synapse.tools;
 
-  matrix-appservice-irc = callPackage ../servers/matrix-synapse/matrix-appservice-irc { };
+  matrix-appservice-irc = callPackage ../servers/matrix/matrix-appservice-irc { };
 
-  matrix-appservice-slack = callPackage ../servers/matrix-synapse/matrix-appservice-slack {};
+  matrix-appservice-slack = callPackage ../servers/matrix/matrix-appservice-slack {};
 
-  matrix-appservice-discord = callPackage ../servers/matrix-appservice-discord { };
+  matrix-appservice-discord = callPackage ../servers/matrix/matrix-appservice-discord { };
 
-  matrix-corporal = callPackage ../servers/matrix-corporal { };
+  matrix-corporal = callPackage ../servers/matrix/matrix-corporal { };
 
-  mautrix-signal = recurseIntoAttrs (callPackage ../servers/mautrix-signal { });
+  mautrix-signal = recurseIntoAttrs (callPackage ../servers/matrix/mautrix-signal { });
 
-  mautrix-telegram = recurseIntoAttrs (callPackage ../servers/mautrix-telegram { });
+  mautrix-telegram = recurseIntoAttrs (callPackage ../servers/matrix/mautrix-telegram { });
 
-  mautrix-whatsapp = callPackage ../servers/mautrix-whatsapp { };
+  mautrix-whatsapp = callPackage ../servers/matrix/mautrix-whatsapp { };
 
   mcfly = callPackage ../tools/misc/mcfly { };
 
@@ -6566,7 +6566,7 @@ in
 
   multitail = callPackage ../tools/misc/multitail { };
 
-  mx-puppet-discord = callPackage ../servers/mx-puppet-discord { };
+  mx-puppet-discord = callPackage ../servers/matrix/mx-puppet-discord { };
 
   mxt-app = callPackage ../misc/mxt-app { };
 

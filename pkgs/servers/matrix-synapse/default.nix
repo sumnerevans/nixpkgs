@@ -11,11 +11,11 @@ in
 with python3.pkgs;
 buildPythonApplication rec {
   pname = "matrix-synapse";
-  version = "1.52.0";
+  version = "1.53.0";
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "091z3rwd10n59andfy1pfjrf6q3n3yrjqrws13lqc02w23aaxzin";
+    sha256 = "sha256-40tkK2R1GWdCNWqsA//xJqEIb9Ch2tlojOnlkMKg6V4=";
   };
 
   # frozendict version constraint is to avoid a debian issue we don't have

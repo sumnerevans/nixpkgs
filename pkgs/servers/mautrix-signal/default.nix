@@ -2,13 +2,13 @@
 
 python3.pkgs.buildPythonPackage rec {
   pname = "mautrix-signal";
-  version = "0.4.1";
+  version = "0.4.2";
 
   src = fetchFromGitHub {
     owner = "mautrix";
     repo = "signal";
     rev = "refs/tags/v${version}";
-    sha256 = "sha256-WcyBv7b1JxiZJSqxgAUUgTa5Q/aNzU9SfXfdXKVuuXQ=";
+    sha256 = "sha256-UbetU1n9zD/mVFaJc9FECDq/Zell1TI/aYPsGXGB8Js=";
   };
 
   propagatedBuildInputs = with python3.pkgs; [
@@ -32,9 +32,8 @@ python3.pkgs.buildPythonPackage rec {
   doCheck = false;
 
   postPatch = ''
-    substituteInPlace requirements.txt \
-      --replace "asyncpg>=0.20,<0.26" "asyncpg>=0.20" \
-      --replace "mautrix>=0.16.0,<0.17" "mautrix>=0.16.0"
+    sed -i requirements.txt \
+      -e 's/asyncpg>=.*/asyncpg/'
   '';
 
   postInstall = ''
